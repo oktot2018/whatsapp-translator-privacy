@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>鸿鹄 WhatsApp™ 消息翻译 — 隐私政策 · Privacy Policy</title>
+<meta name="description" content="鸿鹄 WhatsApp™ 消息翻译（非官方 Chrome 扩展）隐私政策 / Privacy Policy for the unofficial WhatsApp Web translator extension.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F6F4;
+    --paper-raised:#FFFFFF;
+    --ink:#10202B;
+    --ink-soft:#2C3C46;
+    --slate:#5B6B76;
+    --slate-faint:#8A97A0;
+    --teal-deep:#076A83;
+    --teal:#0891B2;
+    --cyan:#00A5F4;
+    --line:#DCE2E4;
+    --line-soft:#EAEDEE;
+    --radius-s:4px;
+    --radius-m:10px;
+    --serif:"Newsreader", Georgia, "Songti SC", serif;
+    --sans:"IBM Plex Sans", -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --mono:"IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-soft);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--teal-deep);}
+  a:hover{color:var(--cyan);}
+  :focus-visible{outline:2.5px solid var(--cyan); outline-offset:2px; border-radius:2px;}
+
+  /* ================= Top bar ================= */
+  .topbar{
+    position:sticky; top:0; z-index:40;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+    padding:14px 24px;
+    background:rgba(245,246,244,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink);}
+  .brand-mark{
+    width:30px; height:30px; border-radius:50%;
+    background:linear-gradient(135deg, var(--cyan) 0%, var(--teal-deep) 100%);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .brand-mark svg{width:17px; height:17px;}
+  .brand-name{font-family:var(--sans); font-weight:600; font-size:14px; letter-spacing:0.01em;}
+  .brand-name .zh{display:inline;}
+  .brand-name .en{display:none;}
+
+  .lang-switch{
+    display:flex; border:1px solid var(--line); border-radius:20px; overflow:hidden;
+    background:var(--paper-raised);
+    flex-shrink:0;
+  }
+  .lang-switch button{
+    appearance:none; border:none; background:transparent; cursor:pointer;
+    font-family:var(--sans); font-size:12.5px; font-weight:600;
+    padding:6px 14px; color:var(--slate);
+    transition:background .15s ease, color .15s ease;
+  }
+  .lang-switch button.active{background:var(--teal-deep); color:#fff;}
+  .lang-switch button:not(.active):hover{background:var(--line-soft); color:var(--ink);}
+
+  /* ================= Masthead ================= */
+  .masthead{
+    max-width:1180px; margin:0 auto;
+    padding:56px 24px 34px;
+  }
+  .badge{
+    display:inline-block;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.04em;
+    color:var(--teal-deep);
+    border:1px solid var(--teal-deep);
+    border-radius:20px;
+    padding:4px 12px;
+    margin-bottom:20px;
+  }
+  h1.doc-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(32px, 5vw, 48px);
+    line-height:1.12;
+    color:var(--ink);
+    margin:0 0 14px;
+    max-width:15ch;
+    opacity:0;
+    animation:rise .6s ease forwards .05s;
+  }
+  .doc-sub{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:19px;
+    color:var(--slate);
+    max-width:44ch;
+    margin:0 0 26px;
+    opacity:0;
+    animation:rise .6s ease forwards .16s;
+  }
+  @keyframes rise{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:22px 32px;
+    font-family:var(--mono); font-size:12px; color:var(--slate-faint);
+    padding-top:20px; border-top:1px solid var(--line);
+  }
+  .meta-row dt{display:inline; text-transform:uppercase; letter-spacing:0.06em; color:var(--slate-faint);}
+  .meta-row dd{display:inline; margin:0 0 0 6px; color:var(--ink-soft); font-family:var(--sans);}
+
+  /* ================= Quick facts strip ================= */
+  .facts{
+    max-width:1180px; margin:0 auto; padding:0 24px 8px;
+  }
+  .facts-inner{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    display:grid; grid-template-columns:repeat(4, 1fr);
+  }
+  .fact{
+    padding:20px 20px 22px 0;
+    border-left:1px solid var(--line);
+    padding-left:20px;
+  }
+  .fact:first-child{border-left:none; padding-left:0;}
+  .fact-icon{color:var(--teal-deep); margin-bottom:10px;}
+  .fact-icon svg{width:18px; height:18px;}
+  .fact-title{font-weight:600; font-size:14px; color:var(--ink); margin-bottom:4px;}
+  .fact-desc{font-size:12.5px; color:var(--slate); line-height:1.55;}
+
+  @media (max-width:760px){
+    .facts-inner{grid-template-columns:repeat(2, 1fr);}
+    .fact{border-left:none; border-top:1px solid var(--line); padding:18px 0 4px;}
+    .fact:nth-child(odd){padding-right:16px;}
+    .fact:nth-child(even){padding-left:16px; border-left:1px solid var(--line);}
+    .fact:nth-child(1),.fact:nth-child(2){border-top:none;}
+  }
+
+  /* ================= Layout ================= */
+  .layout{
+    max-width:1180px; margin:0 auto;
+    padding:48px 24px 90px;
+    display:grid;
+    grid-template-columns:1fr 250px;
+    gap:64px;
+    align-items:start;
+  }
+  @media (max-width:960px){
+    .layout{grid-template-columns:1fr; gap:28px;}
+  }
+
+  main{max-width:680px;}
+
+  section.policy-section{
+    padding-top:44px; margin-top:44px;
+    border-top:1px solid var(--line-soft);
+  }
+  section.policy-section:first-of-type{margin-top:0; padding-top:0; border-top:none;}
+
+  .sec-num{
+    font-family:var(--mono); font-size:12px; color:var(--teal-deep);
+    letter-spacing:0.05em; margin-bottom:10px;
+  }
+  h2.sec-title{
+    font-family:var(--serif); font-weight:600;
+    font-size:26px; color:var(--ink);
+    margin:0 0 16px; line-height:1.25;
+  }
+  h3.sub-title{
+    font-family:var(--sans); font-weight:600;
+    font-size:15px; color:var(--ink);
+    margin:22px 0 8px;
+  }
+  section.policy-section p{margin:0 0 14px; color:var(--ink-soft);}
+  section.policy-section ul{margin:0 0 14px; padding-left:20px;}
+  section.policy-section li{margin-bottom:8px; color:var(--ink-soft);}
+  section.policy-section strong{color:var(--ink); font-weight:600;}
+  code.inline{
+    font-family:var(--mono); font-size:0.86em;
+    background:var(--line-soft); border:1px solid var(--line);
+    padding:1px 6px; border-radius:4px; color:var(--teal-deep);
+  }
+
+  .pledge{
+    border-left:3px solid var(--teal-deep);
+    background:var(--paper-raised);
+    padding:16px 20px;
+    border-radius:0 var(--radius-s) var(--radius-s) 0;
+    margin:18px 0;
+  }
+  .pledge p{margin:0; font-family:var(--serif); font-style:italic; font-size:16px; color:var(--ink);}
+
+  /* ================= TOC ================= */
+  details.toc{
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    background:var(--paper-raised);
+    padding:4px 0;
+  }
+  .toc-summary{
+    cursor:pointer; list-style:none;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px;
+    font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em;
+    text-transform:uppercase; color:var(--slate);
+  }
+  .toc-summary::-webkit-details-marker{display:none;}
+  .toc-summary::after{content:"+"; font-size:15px; color:var(--slate-faint);}
+  details[open] .toc-summary::after{content:"–";}
+  .toc-list{list-style:none; margin:0; padding:0 10px 14px;}
+  .toc-list li a{
+    display:flex; gap:10px;
+    padding:7px 8px; border-radius:6px;
+    font-size:13px; color:var(--slate);
+    text-decoration:none;
+    transition:background .12s ease, color .12s ease;
+  }
+  .toc-list li a:hover{background:var(--line-soft); color:var(--ink);}
+  .toc-list li a.active{color:var(--teal-deep); background:rgba(8,145,178,0.08); font-weight:600;}
+  .toc-list .tnum{font-family:var(--mono); color:var(--slate-faint); flex-shrink:0;}
+  .toc-list li a.active .tnum{color:var(--teal-deep);}
+
+  @media (min-width:960px){
+    aside{
+      position:sticky;
+      top:78px;
+      align-self:start;
+      max-height:calc(100vh - 100px);
+      overflow-y:auto;
+      z-index: 1;
+    }
+    details.toc{border:none; background:transparent; padding:0;}
+    .toc-summary{display:none;}
+    .toc-list{padding:0;}
+    .toc-list li a{font-size:12.5px; padding:6px 0;}
+    .toc-list li a:hover{background:transparent; color:var(--teal-deep);}
+    .rail-contact{
+      margin-top:22px; padding-top:18px; border-top:1px solid var(--line);
+      font-size:12.5px; color:var(--slate);
+    }
+    .rail-contact a{display:block; margin-top:4px; font-weight:600;}
+  }
+  .rail-contact{display:none;}
+  @media (min-width:960px){.rail-contact{display:block;}}
+
+  /* ================= Footer ================= */
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 24px 46px;
+  }
+  .footer-inner{
+    max-width:1180px; margin:0 auto;
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px;
+    font-size:12.5px; color:var(--slate-faint);
+  }
+  .footer-inner a{color:var(--slate);}
+  .back-top{
+    font-family:var(--mono); font-size:11.5px; text-decoration:none; color:var(--teal-deep);
+    border:1px solid var(--line); border-radius:16px; padding:6px 14px;
+  }
+  .back-top:hover{border-color:var(--teal-deep);}
+
+  /* ================= Language visibility ================= */
+  .en{display:none;}
+  body.lang-en .zh{display:none;}
+  body.lang-en .en{display:inline;}
+  body.lang-en .en.block{display:block;}
+  body.lang-en h1.doc-title .en,
+  body.lang-en .doc-sub .en{display:inline;}
+</style>
+</head>
+<body class="lang-zh">
+
+  <div class="topbar">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+      </span>
+      <span class="brand-name">
+        <span class="zh">鸿鹄 WhatsApp™ 消息翻译</span>
+        <span class="en">HongHu WhatsApp™ Web Translator</span>
+      </span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Language / 语言">
+      <button type="button" id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+      <button type="button" id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+
+  <div id="top"></div>
+
+  <header class="masthead">
+    <span class="badge">
+      <span class="zh">非官方第三方扩展 · 与 WhatsApp / Meta 无关联</span>
+      <span class="en">Unofficial third-party extension · Not affiliated with WhatsApp / Meta</span>
+    </span>
+    <h1 class="doc-title">
+      <span class="zh">隐私政策</span>
+      <span class="en">Privacy Policy</span>
+    </h1>
+    <p class="doc-sub">
+      <span class="zh">这份文档说明鸿鹄 WhatsApp™ 消息翻译扩展如何处理你的数据——简单说：几乎不处理，一切都留在你自己的设备和你自己选择的服务商之间。</span>
+      <span class="en">How the HongHu WhatsApp™ Web Translator extension handles your data — in short: almost not at all. Everything stays between your own device and the providers you choose.</span>
+    </p>
+    <dl class="meta-row">
+      <div><dt><span class="zh">生效日期</span><span class="en">Effective</span></dt><dd>2026-09-04</dd></div>
+      <div><dt><span class="zh">适用版本</span><span class="en">Applies to</span></dt><dd>v1.4.0+</dd></div>
+      <div><dt><span class="zh">扩展类型</span><span class="en">Type</span></dt><dd><span class="zh">Chrome 浏览器扩展</span><span class="en">Chrome browser extension</span></dd></div>
+    </dl>
+  </header>
+
+  <div class="facts">
+    <div class="facts-inner">
+      <div class="fact">
+        <div class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="fact-title"><span class="zh">无中间服务器</span><span class="en">No middle server</span></div>
+        <div class="fact-desc"><span class="zh">开发者不运营任何后端，无法接触你的聊天内容</span><span class="en">The developer runs no backend and never sees your messages</span></div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6l-9-4z"/></svg></div>
+        <div class="fact-title"><span class="zh">密钥仅存本机</span><span class="en">Keys stay local</span></div>
+        <div class="fact-desc"><span class="zh">API Key 只写入 chrome.storage.local，不上传、不同步</span><span class="en">API keys live only in chrome.storage.local — never uploaded or synced</span></div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h6"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></div>
+        <div class="fact-title"><span class="zh">数据不出售</span><span class="en">Never sold</span></div>
+        <div class="fact-desc"><span class="zh">不向广告商出售或共享任何数据</span><span class="en">No data is sold or shared with advertisers</span></div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H7l-3 3V4z"/></svg></div>
+        <div class="fact-title"><span class="zh">单一站点</span><span class="en">Single site scope</span></div>
+        <div class="fact-desc"><span class="zh">脚本只在 web.whatsapp.com 运行</span><span class="en">Scripts run only on web.whatsapp.com</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main>
+
+      <section class="policy-section" id="s1">
+        <div class="sec-num">01</div>
+        <h2 class="sec-title"><span class="zh">我们收集哪些数据</span><span class="en">Information We Collect</span></h2>
+        <p>
+          <span class="zh">本插件在你使用时，会读取你在 <code class="inline">web.whatsapp.com</code> 页面上的部分聊天内容：对方发来的消息文本，以及你在输入框中输入的、准备翻译或润色的文本。插件不会读取除 <code class="inline">web.whatsapp.com</code> 以外任何网站的内容，也不记录你的浏览历史。</span>
+          <span class="en">While in use, the extension reads a portion of the chat content on <code class="inline">web.whatsapp.com</code>: incoming message text, and any text you type into the compose box for translation or polishing. It does not read content on any site other than <code class="inline">web.whatsapp.com</code>, and it does not log your browsing history.</span>
+        </p>
+      </section>
+
+      <section class="policy-section" id="s2">
+        <div class="sec-num">02</div>
+        <h2 class="sec-title"><span class="zh">数据如何使用与传输</span><span class="en">How Data Is Used and Transferred</span></h2>
+        <p>
+          <span class="zh">本插件的核心功能是翻译与文本润色。为实现这一功能，你需要翻译或润色的文本会被发送至以下第三方服务，具体使用哪一个取决于你的设置和各服务当时的可用性：</span>
+          <span class="en">The extension's core function is translation and text polishing. To provide this, the text you translate or polish is sent to one of the following third-party services, depending on your settings and each service's availability at the time:</span>
+        </p>
+        <h3 class="sub-title"><span class="zh">默认免费翻译源（无需配置）</span><span class="en">Default free translation sources (no setup required)</span></h3>
+        <p><span class="zh">Google 翻译、Microsoft Bing 翻译、MyMemory —— 用于自动翻译收到的消息，以及默认的发送前翻译。</span><span class="en">Google Translate, Microsoft Bing Translator, and MyMemory — used for auto-translating incoming messages and default pre-send translation.</span></p>
+        <h3 class="sub-title"><span class="zh">可选翻译源（需你自行配置密钥）</span><span class="en">Optional translation sources (require your own credentials)</span></h3>
+        <ul>
+          <li><span class="zh">DeepL（需 DeepL Authentication Key）</span><span class="en">DeepL (requires a DeepL Authentication Key)</span></li>
+          <li><span class="zh">百度翻译开放平台（需 APPID 与密钥）</span><span class="en">Baidu Translate Open Platform (requires an App ID and secret key)</span></li>
+          <li><span class="zh">腾讯云机器翻译（需 SecretId 与 SecretKey）</span><span class="en">Tencent Cloud Machine Translation (requires a SecretId and SecretKey)</span></li>
+        </ul>
+        <h3 class="sub-title"><span class="zh">你自定义配置的 AI 润色服务商</span><span class="en">Your own configured AI polishing provider</span></h3>
+        <p><span class="zh">如果你配置了 OpenAI、DeepSeek 或其他兼容服务商（包括本地部署的 Ollama），需要润色的文本将直接发送至你配置的服务商地址。</span><span class="en">If you configure OpenAI, DeepSeek, or another compatible provider (including a locally hosted Ollama instance), the text to be polished is sent directly to the endpoint you configured.</span></p>
+        <div class="pledge">
+          <p>
+            <span class="zh">本插件的所有网络请求均由你的浏览器（通过后台 Service Worker，仅用于规避浏览器 CORS 限制）直接发往上述服务商。开发者不运营任何中间服务器，不会收集、截取、存储、分析或以任何形式留存你的聊天记录或翻译内容。</span>
+            <span class="en">Every request the extension makes goes directly from your browser (via a background service worker, used solely to work around browser CORS restrictions) to the providers above. The developer operates no intermediary server and does not collect, intercept, store, analyze, or otherwise retain your chats or translations in any form.</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="policy-section" id="s3">
+        <div class="sec-num">03</div>
+        <h2 class="sec-title"><span class="zh">API 密钥的存储</span><span class="en">Storage of API Keys</span></h2>
+        <p>
+          <span class="zh">你在设置页面输入的任何密钥（DeepL Auth Key、百度 APPID / 密钥、腾讯云 SecretId / SecretKey、OpenAI 等 AI 服务商 API Key），均仅保存在 Chrome 浏览器的本地存储（<code class="inline">chrome.storage.local</code>）中，只存在于当前安装本插件的这台设备上。这些密钥不会被上传到开发者的服务器，也不会通过 Chrome 账号云端同步到你的其他设备。</span>
+          <span class="en">Any key you enter in the settings page — DeepL Auth Key, Baidu App ID / secret key, Tencent Cloud SecretId / SecretKey, or an AI provider API key such as OpenAI's — is stored only in the Chrome browser's local storage (<code class="inline">chrome.storage.local</code>), on the single device where the extension is installed. These keys are never uploaded to any developer-run server, and never synced to your other devices via your Chrome/Google account.</span>
+        </p>
+      </section>
+
+      <section class="policy-section" id="s4">
+        <div class="sec-num">04</div>
+        <h2 class="sec-title"><span class="zh">功能设置的同步</span><span class="en">Settings Sync</span></h2>
+        <p>
+          <span class="zh">部分不涉及密钥的开关类设置（如是否自动翻译、目标语言、译文颜色等）使用 <code class="inline">chrome.storage.sync</code> 保存，这类设置会通过你登录的 Google 账号在你已登录同一账号的多台设备间同步——这是 Chrome 浏览器提供的标准同步机制，本插件开发者无法访问该同步数据。该同步范围不包含任何 API Key 或聊天内容。</span>
+          <span class="en">Non-sensitive toggle-style settings that don't involve any key (such as whether auto-translation is on, your target language, or translation text color) are saved with <code class="inline">chrome.storage.sync</code>. This lets these settings follow you across devices signed into the same Google account, using Chrome's standard built-in sync mechanism — the extension developer cannot access this synced data. No API key or chat content is ever included in this sync.</span>
+        </p>
+      </section>
+
+      <section class="policy-section" id="s5">
+        <div class="sec-num">05</div>
+        <h2 class="sec-title"><span class="zh">权限使用说明</span><span class="en">Permissions Explained</span></h2>
+        <ul>
+          <li><span class="zh"><strong>页面脚本注入（activeTab / content scripts）</strong>：仅用于在 <code class="inline">web.whatsapp.com</code> 页面中提取聊天文本并展示翻译结果，不对其他网站生效。</span><span class="en"><strong>Content script injection (activeTab):</strong> used only to extract chat text and show translations on <code class="inline">web.whatsapp.com</code>; it has no effect on any other site.</span></li>
+          <li><span class="zh"><strong>广泛网络权限（https://*/*、http://*/*）</strong>：仅用于允许后台脚本突破浏览器 CORS 限制，向内置或你自定义配置的翻译 / AI 服务商（包括本地部署的 Ollama 等）发送请求，不用于其他任何目的。</span><span class="en"><strong>Broad host permissions (https://*/*, http://*/*):</strong> used solely to let the background script bypass browser CORS restrictions when calling built-in or user-configured translation/AI endpoints (including a local Ollama instance) — for no other purpose.</span></li>
+          <li><span class="zh"><strong>storage</strong>：用于保存上述设置与密钥。</span><span class="en"><strong>storage:</strong> used to save the settings and keys described above.</span></li>
+        </ul>
+      </section>
+
+      <section class="policy-section" id="s6">
+        <div class="sec-num">06</div>
+        <h2 class="sec-title"><span class="zh">未成年人</span><span class="en">Children's Privacy</span></h2>
+        <p>
+          <span class="zh">本插件不专门面向 13 周岁以下儿童设计，也不会主动收集儿童个人信息。</span>
+          <span class="en">This extension is not directed at children under 13 and does not knowingly collect personal information from children.</span>
+        </p>
+      </section>
+
+      <section class="policy-section" id="s7">
+        <div class="sec-num">07</div>
+        <h2 class="sec-title"><span class="zh">联系方式</span><span class="en">Contact</span></h2>
+        <p>
+          <span class="zh">如果你对本隐私政策有任何疑问，欢迎通过以下方式联系开发者：</span>
+          <span class="en">If you have any questions about this privacy policy, you're welcome to reach the developer at:</span>
+        </p>
+        <p><a href="mailto:oktot2018@gmail.com">oktot2018@gmail.com</a></p>
+      </section>
+
+      <section class="policy-section" id="s8">
+        <div class="sec-num">08</div>
+        <h2 class="sec-title"><span class="zh">免责声明</span><span class="en">Disclaimer</span></h2>
+        <p>
+          <span class="zh">本插件为第三方独立开发的工具，与 WhatsApp Inc. 或 Meta Platforms, Inc. 无任何官方关联或合作关系。WhatsApp 是 WhatsApp Inc. 的注册商标。请确保你在向第三方 AI 或翻译服务商发送信息时，符合你所在国家/地区及所在组织的隐私合规要求。</span>
+          <span class="en">This extension is an independent, third-party tool and is not affiliated with, endorsed by, or in any way officially connected to WhatsApp Inc. or Meta Platforms, Inc. WhatsApp is a registered trademark of WhatsApp Inc. Please ensure your use of any third-party AI or translation provider complies with the privacy requirements of your jurisdiction and organization.</span>
+        </p>
+      </section>
+
+    </main>
+
+    <aside>
+      <details class="toc" open>
+        <summary class="toc-summary">
+          <span class="zh">目录</span><span class="en">On this page</span>
+        </summary>
+        <ol class="toc-list">
+          <li><a href="#s1"><span class="tnum">01</span><span><span class="zh">我们收集哪些数据</span><span class="en">Information We Collect</span></span></a></li>
+          <li><a href="#s2"><span class="tnum">02</span><span><span class="zh">数据使用与传输</span><span class="en">Use &amp; Transfer</span></span></a></li>
+          <li><a href="#s3"><span class="tnum">03</span><span><span class="zh">API 密钥存储</span><span class="en">API Key Storage</span></span></a></li>
+          <li><a href="#s4"><span class="tnum">04</span><span><span class="zh">设置同步</span><span class="en">Settings Sync</span></span></a></li>
+          <li><a href="#s5"><span class="tnum">05</span><span><span class="zh">权限说明</span><span class="en">Permissions</span></span></a></li>
+          <li><a href="#s6"><span class="tnum">06</span><span><span class="zh">未成年人</span><span class="en">Children</span></span></a></li>
+          <li><a href="#s7"><span class="tnum">07</span><span><span class="zh">联系方式</span><span class="en">Contact</span></span></a></li>
+          <li><a href="#s8"><span class="tnum">08</span><span><span class="zh">免责声明</span><span class="en">Disclaimer</span></span></a></li>
+        </ol>
+      </details>
+      <div class="rail-contact">
+        <span class="zh">有问题？</span><span class="en">Questions?</span>
+        <a href="mailto:oktot2018@gmail.com">oktot2018@gmail.com</a>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span>
+        <span class="zh">© 2026 鸿鹄 WhatsApp™ 消息翻译 · 独立开发者维护</span>
+        <span class="en">© 2026 HongHu WhatsApp™ Web Translator · maintained by an independent developer</span>
+      </span>
+      <a class="back-top" href="#top"><span class="zh">回到顶部</span><span class="en">Back to top</span></a>
+    </div>
+  </footer>
+
+<script>
+  function setLang(lang){
+    document.body.classList.toggle('lang-en', lang === 'en');
+    document.body.classList.toggle('lang-zh', lang !== 'en');
+    document.getElementById('btn-zh').classList.toggle('active', lang !== 'en');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+  }
+
+  // Scrollspy for desktop TOC
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc-list a'));
+    var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var id = '#' + entry.target.id;
+        var link = links.find(function(a){ return a.getAttribute('href') === id; });
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(function(a){ a.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+    sections.forEach(function(s){ if (s) observer.observe(s); });
+  })();
+</script>
+</body>
+</html>
